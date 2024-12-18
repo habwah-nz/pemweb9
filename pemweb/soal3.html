@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menghitung Biaya Parkir</title>
+</head>
+<body>
+    <h1>Menghitung Biaya Parkir</h1>
+
+    <label for="masuk">Jam Masuk:</label>
+    <input type="time" id="masuk" onchange="parkir()"><br><br>
+
+    <label for="keluar">Jam Keluar:</label>
+    <input type="time" id="keluar" onchange="parkir()"><br><br>
+
+    <p>Kendaraan Anda parkir selama <span id="lamaParkir">0</span> jam</p>
+    <p>Biaya parkir Anda sebesar Rp. <span id="biayaParkir">0</span></p>
+
+    <!-- Javascript -->
+    <script>
+        function parkir() {
+            let masuk = document.getElementById('masuk').value;
+            let keluar = document.getElementById('keluar').value;
+
+            // Memecah jam dan menit dari waktu masuk
+            let jamMasuk = parseInt(masuk.split(':')[0]);
+            let menitMasuk = parseInt(masuk.split(':')[1]);
+
+            // Memecah jam dan menit dari waktu keluar
+            let jamKeluar = parseInt(keluar.split(':')[0]);
+            let menitKeluar = parseInt(keluar.split(':')[1]);
+
+            // Menghitung total menit dari jam masuk dan keluar
+            let totalMenitMasuk = jamMasuk * 60 + menitMasuk;
+            let totalMenitKeluar = jamKeluar * 60 + menitKeluar;
+
+            // Jika waktu keluar lebih kecil dari waktu masuk (melewati tengah malam)
+            if (totalMenitKeluar < totalMenitMasuk) {
+                totalMenitKeluar += 24 * 60; // Menambahkan 24 jam dalam menit untuk melewati tengah malam
+            }
+
+            // Menghitung lama parkir dalam menit
+            let lamaParkirMenit = totalMenitKeluar - totalMenitMasuk;
+
+            // Menghitung lama parkir dalam jam
+            let lamaParkirJam = lamaParkirMenit / 60;
+
+            // Menghitung biaya parkir
+            let biayaParkir;
+            if (lamaParkirJam <= 2) {
+                biayaParkir = 3000; // Rp. 3000 untuk 2 jam pertama
+            } else if (lamaParkirJam <= 3) {
+                biayaParkir = ((lamaParkirJam - 2) * 1000) + 3000; // Rp. 1000 per jam setelah 2 jam pertama
+            } else {
+                biayaParkir = 0; // Misalnya gratis setelah lebih dari 3 jam
+            }
+
+            // Menampilkan lama parkir dan biaya parkir
+            document.getElementById('lamaParkir').innerHTML = lamaParkirJam.toFixed(2); // Menampilkan jam parkir
+            document.getElementById('biayaParkir').innerHTML = biayaParkir; // Menampilkan biaya parkir
+        }
+    </script>
+</body>
+</html>

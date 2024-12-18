@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menghitung Jumlah Dua Bilangan</title>
+</head>
+<body>
+    <!-- Input untuk bilangan pertama -->
+    <input type="number" id="bil1" value="0" onchange="penjumlahan()"><br>
+
+    <span>+</span><br>
+
+    <!-- Input untuk bilangan kedua -->
+    <input type="number" id="bil2" value="0" onchange="penjumlahan()"><br>
+
+    <span>=</span><br>
+
+    <!-- Input untuk menampilkan hasil penjumlahan -->
+    <input type="text" id="hasil" value="0" readonly><br>
+
+    <!-- Javascript -->
+    <script>
+        function penjumlahan() {
+            // Mendapatkan nilai dari kedua input
+            let bil1 = document.getElementById('bil1').value;
+            let bil2 = document.getElementById('bil2').value;
+
+            // Menghitung hasil penjumlahan
+            let hasil = parseInt(bil1) + parseInt(bil2);
+
+            // Menampilkan hasil penjumlahan pada input hasil
+            document.getElementById('hasil').value = hasil; 
+        }
+    </script>
+</body>
+</html>
